@@ -42,42 +42,75 @@ watch(
 
 <template>
   <div>
-    <Loader v-if="loading && name.length > 0" />
+    <Loader
+      v-if="loading && name.length > 0"
+      aria-live="polite"
+      role="status"
+    />
 
     <div v-else>
-      <div v-if="pokemon"
-        class="w-full max-w-sm rounded-xl border border-gray-200 bg-white shadow-md p-5 flex flex-col items-center gap-4">
-        <!-- sprites -->
-        <div class="flex justify-center gap-4">
-          <PokemonImage :imageSrc="pokemon.sprites.front_default">
-          </PokemonImage>
-
-          <PokemonImage :imageSrc="pokemon.sprites.back_default">
-          </PokemonImage>
+      <!-- Pokemon Card -->
+      <section
+        v-if="pokemon"
+        class="w-full max-w-sm rounded-xl border border-gray-200 bg-white shadow-md p-5 flex flex-col items-center gap-4"
+        aria-labelledby="pokemon-name"
+        role="region"
+      >
+        <!-- Image section -->
+        <div class="flex justify-center gap-4" aria-label="Pokemon images">
+          <PokemonImage
+            :imageSrc="pokemon.sprites.front_default"
+            :alt="`Front view of ${pokemon.name}`"
+          />
+          <PokemonImage
+            :imageSrc="pokemon.sprites.back_default"
+            :alt="`Back view of ${pokemon.name}`"
+          />
         </div>
 
         <!-- Name -->
-        <h2 class="text-xl font-semibold text-gray-800 capitalize">
+        <h2
+          id="pokemon-name"
+          class="text-xl font-semibold text-gray-800 capitalize"
+        >
           {{ pokemon.name }}
         </h2>
 
         <!-- Attributes & Abilities -->
-        <div class="flex flex-wrap justify-center gap-2">
-          <span class="px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded-full">
+        <div
+          class="flex flex-wrap justify-center gap-2"
+          aria-label="Pokemon attributes and abilities"
+        >
+          <span
+            class="px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded-full"
+          >
             Height: {{ pokemon.height }}
           </span>
-          <span class="px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded-full">
+          <span
+            class="px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded-full"
+          >
             Weight: {{ pokemon.weight }}
           </span>
 
-          <span v-for="(ability, index) in pokemon.abilities" :key="index"
-            class="px-3 py-1 text-sm font-medium bg-blue-100 text-blue-800 rounded-full">
+          <span
+            v-for="(ability, index) in pokemon.abilities"
+            :key="index"
+            class="px-3 py-1 text-sm font-medium bg-blue-100 text-blue-800 rounded-full"
+          >
             {{ ability }}
           </span>
         </div>
-      </div>
+      </section>
 
-      <span v-else-if="error" class="text-red-500"> {{ error.message }}</span>
+      <!-- Error message -->
+      <p
+        v-else-if="error"
+        class="text-red-500 mt-2"
+        role="alert"
+        aria-live="assertive"
+      >
+        {{ error.message }}
+      </p>
     </div>
   </div>
 </template>
