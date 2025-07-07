@@ -5,7 +5,7 @@
 
 
 ## Teil 2: Das Datenmodell
-![Kanban-Board Datenmodell](./assets/kanban_board_data_model.png)
+![Kanban-Board Datenmodell](./src/assets/kanban_board_data_model.png)
 
 
 
