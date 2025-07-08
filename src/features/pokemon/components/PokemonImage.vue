@@ -41,7 +41,7 @@ const handleImageError = (): void => {
 
     <!-- error fallback -->
     <div
-      v-if="imageError"
+      v-if="imageError || !imageSrc"
       class="w-20 h-20 flex items-center justify-center bg-gray-100 text-gray-400"
       aria-label="Image failed to load"
     >
@@ -53,11 +53,5 @@ const handleImageError = (): void => {
         />
       </svg>
     </div>
-
-    <!--overlay -->
-    <div
-      class="absolute inset-0 bg-gradient-to-br from-transparent to-white opacity-10 pointer-events-none"
-      aria-hidden="true"
-    />
   </div>
 </template>

@@ -18,10 +18,12 @@ const loading = ref<boolean>(true);
 const error = ref<Error | null>(null);
 
 watch(
-  () => props.name,
+  () => props.name?.trim(),
   async (newName) => {
-    if (props.name.length === 0) pokemon.value = null;
-    if (!newName) return;
+    if (!newName) {
+      pokemon.value = null;
+      return;
+    }
 
     loading.value = true;
     error.value = null;
